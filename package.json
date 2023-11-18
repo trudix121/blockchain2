@@ -1,0 +1,28 @@
+{
+  "name": "blockchain",
+  "description": "a simple blockchain app",
+  "authors": "Trudix",
+  "version": "1.2.0",
+  "main": "./backend/js/main.js",
+  "scripts": {
+    "dev": "nodemon "
+  },
+  "dependencies": {
+    "axios": "^1.6.1",
+    "body-parser": "~1.20.2",
+    "date-fns": "~2.30.0",
+    "discord-gamecord": "^4.4.1",
+    "discord.js": "^14.13.0",
+    "dotenv": "^16.3.1",
+    "ejs": "~3.1.9",
+    "express": "~4.18.2",
+    "mongodb": "~6.2.0",
+    "mongodb-connection-string-url": "^3.0.0",
+    "node-fetch": "^3.3.2",
+    "nodemailer": "~6.9.7"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/trudix121/blockchain2.git"
+  }
+}

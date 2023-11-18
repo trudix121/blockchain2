@@ -1,0 +1,180 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+</head>
+<nav class="navbar navbar-expand-lg bg-light ">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="">Blockchain</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link " aria-current="page" href="/blockchain?username=<%=username%>">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="/blockchain/transfer?username=<%=username%>">Transfer</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " aria-current="page" href="/blockchain/badges?username=<%=username%>">Your Badges</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="http://localhost:3000/curency?username=<%=username%>">Curency</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="/blockchain/profile?username=<%=username%>">Your Profile</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Crypto 
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="">Ethm: <%=ethm%></a></li>
+              <li><a class="dropdown-item" href="">Report Bug (COMING SOON)</a></li>
+              <li><a class="dropdown-item" href="/blockchain/shop?username=<%=username%>">Shop</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="/blockchain/earn_ethm?username=<%=username%>">Earn Ethm</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled">Disabled</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+<body class="bg-dark">
+    <div class="container ">
+        <h1>Curency</h1>
+        <h2>Your Money: <%=money%></h2>
+        <h2>Your Ethm: <%=ethm%></h2>
+        <h2>Hi <%=username%></h2>
+        <h1>Price Now: <%=price%>$</h1>
+        <h1>1 Ethm => <%=price%>$</h1>
+        <h1><%=price%>$ => 1 Ethm</h1>
+        <form action="http://localhost:3000/curency/buy?username=<%=username%>" method="POST"><input type="number" name="ethm" placeholder="Buy Ethm"><button type="submit">Buy</button></form>
+        <form action="http://localhost:3000/curency/sell?username=<%=username%>" method="POST"><input type="number" name="ethm" placeholder="Sell Ethm"><button type="submit">Sell</button></form>
+        <label >U Can Buy Maximum 1000 Ethm/Day</label>
+
+    </div>
+
+    <div class="calculator d-flex justify-content-center">
+      <div class="calulator-1 d-flex justify-content-center">
+        <h2>Mini Calculator</h2>
+        <input type="number" id="num1" placeholder="Ethm">
+        <input type="number" id="num2" placeholder="Price">
+        <input type="submit" value="Calculate" onclick="calculate('multiply')">
+        <div id="result"></div>
+      </div>
+    
+    </div>
+
+
+    
+
+    
+    <style>
+      
+.calculator-1 {
+      width: 200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: right;
+      justify-content: right;
+    }
+
+    .calculator-1 [type="number"],
+    .calculator-1 input[type="submit"] {
+      display: block;
+      margin-bottom: 10px;
+      padding: 5px;
+      width: 100%;
+    }
+
+    .calculator-1    input[type="submit"] {
+      background-color: #4CAF50;
+      color: white;
+      cursor: pointer;
+    }
+
+    #result {
+      font-weight: bold;
+      margin-top: 10px;
+      color: red;
+    }
+
+
+
+
+
+
+
+
+
+
+        h1,h2{
+            color: red;
+        }
+        .container{
+            display: absolute;
+        }
+        .container input{
+            padding: 10px;
+            background-color: #15a0ca;
+            
+        }
+        .container button{
+            border: none;
+            padding: 10px;
+            
+            
+        }
+        .container label{
+            color: red;
+            text-transform: uppercase;
+        }
+    </style>
+
+<script>
+  function calculate(operation) {
+    var num1 = parseFloat(document.getElementById('num1').value);
+    var num2 = parseFloat(document.getElementById('num2').value);
+    var result;
+
+    if (isNaN(num1) || isNaN(num2)) {
+      document.getElementById('result').textContent = 'Please enter valid numbers.';
+      return;
+    }
+
+    switch (operation) {
+      case 'add':
+        result = num1 + num2;
+        break;
+      case 'subtract':
+        result = num1 - num2;
+        break;
+      case 'multiply':
+        result = num1 * num2;
+        break;
+      case 'divide':
+        if (num2 === 0) {
+          document.getElementById('result').textContent = 'Cannot divide by zero.';
+          return;
+        }
+        result = num1 / num2;
+        break;
+      default:
+        document.getElementById('result').textContent = 'Invalid operation.';
+        return;
+    }
+
+    document.getElementById('result').textContent = 'Result: ' + `${result}$`;
+  }
+</script>
+</body>
+</html>
