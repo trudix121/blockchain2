@@ -10,22 +10,25 @@ router.use(body.json());
 router.use(body.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 app.set("views", [
-  '../../frontend/admin',
-'  ../../frontend/blockchain',
-'  ../../frontend/index',
-'  ../../frontend/quests',
-'  ../../frontend/curency',
-'  ../../frontend/games'
+  "../../frontend/admin",
+  "  ../../frontend/blockchain",
+  "  ../../frontend/index",
+  "  ../../frontend/quests",
+  "  ../../frontend/curency",
+  "  ../../frontend/games",
 ]);
 
 app.use(router);
 
-
-router.get('/blkjk.jpg',(req ,res)=>[
-    res.sendFile('C:/Users/Pungesti41/Desktop/blockchain_2-0/backend/cdn/blkjk.jpg')
-])
-
-
-
+router.get("/blkjk.jpg", (req, res) => [
+  res.sendFile(
+    "C:/Users/Pungesti41/Desktop/blockchain_2-0/backend/cdn/blkjk.jpg"
+  ),
+]);
+router.get("/ng.js", (req, res) => {
+  res.sendFile(
+    "C:/Users/Pungesti41/Desktop/blockchain_2-0-main/backend/cdn/ng.js"
+  );
+});
 
 module.exports = router;

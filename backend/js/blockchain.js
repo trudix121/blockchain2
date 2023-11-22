@@ -311,5 +311,35 @@ router.post("/search-profile", async (req, res) => {
       }
     });
 });
+router.get("/link", async (req, res) => {
+  const username1 = req.query.username;
+  const username = db.find_one("blockchain", "accounts", {
+    username: username1,
+  });
+
+  res.render("link", { username: req.query.username, ethm:username.ethm });
+});
+
+router.post("/get_code", async (req, res) => {
+  const username = req.query.username;
+  const data  = await db.find_one('blockchain', 'accounts', {username:username})
+  function generate_code() {
+    return Math.floor(Math.random() * 100000) + 1;
+  }
+    
+    
+  if(data.discord_code == null){
+
+          await db.update('blockchain', 'accounts', {username:username}, {$set:{
+      discord_code:generate_code()
+    }})
+      const credits = await db.find_one('blockchain', 'accounts', {username:username})
+      res.send(`Succes Your Discord Link Code is ${credits.discord_code} For username Trudix`)
+  }  
+  else{
+      const code = await db.find_one('blockchain', 'accounts', {username:username})
+          res.send(`You already have a code generated code: ${code.discord_code} `)
+  }
+});
 
 module.exports = router;
