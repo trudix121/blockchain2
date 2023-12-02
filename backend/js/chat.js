@@ -4,7 +4,10 @@ const body = require("body-parser");
 const ejs = require("ejs");
 const router = express.Router();
 const db = require("../db/db.js");
-const fns = require("date-fns");
+const { format } = require("date-fns");
+const { createCipheriv } = require("crypto");
+const currentDate = new Date();
+const formattedDate = format(currentDate, "dd-MM-yyyy HH:mm:ss");
 
 router.use(body.json());
 router.use(body.urlencoded({ extended: true }));
@@ -16,20 +19,20 @@ app.set("views", [
   "  ../../frontend/quests",
   "  ../../frontend/curency",
   "  ../../frontend/games",
-  "../../frontend/chat"
+  "../../frontend/chats"
 ]);
 
 app.use(router);
 
-router.get("/blkjk.jpg", (req, res) => [
-  res.sendFile(
-    "C:/Users/Pungesti41/Desktop/blockchain_2-0/backend/cdn/blkjk.jpg"
-  ),
-]);
-router.get("/ng.js", (req, res) => {
-  res.sendFile(
-    "C:/Users/Pungesti41/Desktop/blockchain_2-0-main/backend/cdn/ng.js"
-  );
-});
 
-module.exports = router;
+router.get('/', (req,res)=>{
+    res.render('../../frontend/chats/chat.ejs')
+
+})
+router.get('/register',(req,res)=>{
+    res.render('../../frontend/chats/register2')
+})
+router.post('/register', (req,res)=>{
+    console.log(req.body)
+})
+module.exports = router

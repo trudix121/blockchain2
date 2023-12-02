@@ -1,0 +1,147 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Realtime Chat</title>
+  <style>
+    body {
+      background-color: #f8f9fa;
+      margin: 50px;
+    }
+
+    #chat-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      border: 1px solid #ced4da;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    #messages {
+      list-style-type: none;
+      padding: 15px;
+      margin: 0;
+      overflow-y: scroll;
+      max-height: 300px;
+    }
+
+    #message-input {
+      padding: 10px;
+      width: calc(100% - 20px);
+      margin: 0;
+      border: none;
+      border-top: 1px solid #ced4da;
+      resize: none;
+    }
+
+    #send-button {
+      width: 100%;
+      padding: 10px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+
+    #username-error {
+      color: red;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div id="chat-container" class="shadow">
+    <ul id="messages" class="mb-0"></ul>
+    <textarea id="message-input" placeholder="Type your message..."></textarea>
+    <button id="send-button">Send</button>
+    <div id="username-error"></div>
+  </div>
+  <input type="text" placeholder="username" id="username">
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.socket.io/3.0.4/socket.io.js"></script>
+  <script>
+    const socket = io('http://localhost:2000', {
+  withCredentials: true,
+  extraHeaders: {
+    "my-custom-header": "value",
+  },
+});
+
+    const sendBtn = document.getElementById('send-button');
+    const messageInput = document.getElementById('message-input');
+    const usernameInput = document.getElementById('username');
+    const errorMsg = document.getElementById('username-error');
+    const messagesList = document.getElementById('messages');
+
+    sendBtn.addEventListener('click', (event) => {
+      event.preventDefault();
+
+      const usr = usernameInput.value;
+      const message = messageInput.value;
+
+      if (usr !== "") {
+        if (usr.length >= 5) {
+          if (message.trim() !== "") {
+            // Emit the message to the server
+            socket.emit('chat message', { usrs: usr, msg: message });
+            messageInput.value = '';
+            errorMsg.innerHTML = ''; // Clear the error message
+          } else {
+            errorMsg.innerHTML = 'Message cannot be empty!';
+          }
+        } else {
+          errorMsg.innerHTML = 'Username needs to have a minimum of 5 letters';
+        }
+      } else {
+        errorMsg.innerHTML = 'Username is not valid!';
+      }
+    });
+    socket.on('chat message', function (msg) {
+  console.log('Received message:', msg);
+
+  if (msg && msg.usrs && msg.msg) {
+    const li = document.createElement('li');
+    li.appendChild(document.createTextNode(msg.usrs + ': ' + msg.msg));
+    messagesList.appendChild(li);
+
+    // Auto-scroll to the bottom
+    messagesList.scrollTop = messagesList.scrollHeight;
+  } else {
+    console.error('Invalid message format:', msg);
+  }
+});
+
+
+
+    // Handle chat history event
+    socket.on('chat history', function (history) {
+  if (Array.isArray(history)) {
+    history.forEach(msg => {
+
+      
+      // Split the message into username and content
+      const [username, content] = msg.split(' : ');
+
+      // Create list item and append to the messagesList
+      const li = document.createElement('li');
+      li.appendChild(document.createTextNode(username + ': ' + content));
+      messagesList.appendChild(li);
+    });
+
+    // Auto-scroll to the bottom
+    messagesList.scrollTop = messagesList.scrollHeight;
+  } else {
+    console.error('Invalid chat history format:', history);
+  }
+});
+
+
+
+    // Load chat history on connection
+    socket.emit('load history');
+  </script>
+</body>
+</html>

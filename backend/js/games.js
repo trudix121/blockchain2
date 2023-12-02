@@ -5,7 +5,6 @@ const ejs = require("ejs");
 const router = express.Router();
 const db = require("../db/db.js");
 const fns = require("date-fns");
-const { stringify } = require("querystring");
 
 router.use(body.json());
 router.use(body.urlencoded({ extended: true }));
@@ -16,7 +15,8 @@ app.set("views", [
 '  ../../frontend/index',
 '  ../../frontend/quests',
 '  ../../frontend/curency',
-'  ../../frontend/games'
+'  ../../frontend/games',
+"../../frontend/chat"
 ]);
 
 app.use(router);
@@ -108,7 +108,7 @@ router.get("/blackjack", async (req, res) => {
   res.render("blackjack", { username: username, money: result.money });
 });
 
-router.post("/slot/remove", async (req, res) => {
+router.post("/bk/remove", async (req, res) => {
   const moneyrm = req.body.moneyrm;
   const money = parseInt(moneyrm);
   const username = req.body.username;
@@ -130,7 +130,7 @@ router.post("/slot/remove", async (req, res) => {
   );
 });
 
-router.post("/slot/add", async (req, res) => {
+router.post("/bk/add", async (req, res) => {
   const moneyad= req.body.moneyad;
   const money = parseInt(moneyad);
   const username = req.body.username;

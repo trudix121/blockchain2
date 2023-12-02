@@ -15,7 +15,8 @@ app.set('views', [
 '  ../../frontend/index',
 '  ../../frontend/quests',
 '  ../../frontend/curency',
-'  ../../frontend/games'
+'  ../../frontend/games',
+"../../frontend/chat"
 
 ]);
 
