@@ -36,7 +36,7 @@ app.set("views", [
   "../../frontend/chats"
 ]);
 
-//db.update('blockchain', 'accounts', {}, {$set: {trans: 0 }})
+//db.update('blockchain', 'accounts', {}, {$set: {level: 0 }})
 
 app.listen(3000, () => {
   console.log("Server started");

@@ -6,6 +6,7 @@ const ejs = require('ejs');
 const router = express.Router();
 const mailer = require('nodemailer')
 const db = require('../db/db.js')
+const register_model = require('../schemas/register.js')
 
 const { generateRandomNumber } = require('../utils/generateRandomNumber.js'); // Adaugă funcțiile de utilitate dintr-un fișier separat (utils.js)
 const { isCodeValid } = require('../utils/isCodeValid.js')
@@ -38,31 +39,33 @@ router.post('/', async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    const result = await db.find_one('blockchain', 'accounts', { email: email, password: password });
+    const bcrypt = require('bcrypt');
 
+    // Obține utilizatorul din baza de date
+    const user = await db.find_one('blockchain', 'accounts', { email: email });
 
-
-      if (result) {
-        if(result.ban == true){
-          res.send(`You Are Banned, with reason ${result.ban_reason}`)
-        }
-        else{
-          res.redirect(`/blockchain?username=${result.username}`);
-
-          
-        }
+    if (user) {
+      if (user.ban === true) {
+        res.send(`You Are Banned, with reason ${user.ban_reason}`);
       } else {
-        res.send('Account not found/Credientials Incorect');
+        // Compară parola introdusă cu hash-ul stocat în baza de date
+        const passwordMatch = await bcrypt.compare(password, user.password);
+
+        if (passwordMatch) {
+          res.redirect(`/blockchain?username=${user.username}`);
+        } else {
+          res.send('Incorrect Password');
+        }
       }
-
-
+    } else {
+      res.send('Account not found');
     }
-
-   catch (error) {
+  } catch (error) {
     console.log(error);
     res.send('An error occurred');
   }
 });
+
 
 router.post('/register', (req, res) => {
   const { email, username, password, security_code } = req.body;
@@ -77,7 +80,7 @@ router.post('/register', (req, res) => {
             if (result) {
               res.send('Username is already in use');
             } else {
-              db.insert('blockchain', 'accounts', {
+            /* db.insert('blockchain', 'accounts', {
                 email: email,
                 username: username,
                 password: password,
@@ -90,7 +93,20 @@ router.post('/register', (req, res) => {
 
               }).then(() => {
                 res.redirect('/');
-              });
+              });*/
+
+              const result = register_model.create({
+                username: username,
+                password: password,
+                email: email,
+                security_code:security_code,
+                ethm:10,
+                money:10000,
+                xp:0,
+                level:0
+              }).then(() => {
+                res.redirect('/');
+              })
             }
           });
       }

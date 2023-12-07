@@ -55,7 +55,7 @@ router.post("/ng/add", async (req, res) => {
       "blockchain",
       "accounts",
       { username: username },
-      { $inc: { ethm: parseInt(ethm) } }
+      { $inc: { ethm: parseInt(ethm), xp:10 } }
     );
     await db.insert("blockchain", "games_logs", {
       username: username,
@@ -147,6 +147,7 @@ router.post("/bk/add", async (req, res) => {
     {
       $inc: {
         money: parseInt(money),
+        xp: 20
       },
     }
   );

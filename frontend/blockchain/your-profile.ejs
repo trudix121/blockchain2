@@ -61,6 +61,7 @@
       <h1><%=username_profile%> Profile</h1>
       <p>Email: <%= email_profile %></p>
       <p>Balance: <%=money_profile%> </p>
+      <p>Level: <%=user_level%> </p>
       <p style=" color: #888;
       margin-bottom: 5px;">Ethm : <%=ethm_profile%></p>
     </div>
@@ -68,60 +69,71 @@
       <input type="text" class="search-profile" name="searched_username" >
       <button class="search-profile-btn" type="submit">Search Profile</button>
     </form>
+   <form action="http://localhost:3000/blockchain/levelup?original_username=<%=username%>" method="post"><button class="search-profile-btn" type="submit">Level Up (<%=xp%>/100)</button></form> 
   </div>
 
   
 
 
   <style>
-
-.profile-card .search-profile{
-  position: absolute;
-  top: 60px;
-  left: 55%;
-  transform: translateX(-50%);
-}
-.profile-card .search-profile-btn{
-  position: absolute;
-  top: 60px;
-  left: 60%;
-  transform: translateX(-50%);
-}
-.profile-card .profile-content {
-  background-color: #810505;
-  border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  padding: 40px; /* Increase the padding value */
-  max-width: 700px;
-  margin: 0 auto;
-}
-
+    .profile-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-top: 50px;
+    }
+  
     .profile-card .profile-content {
       background-color: #810505;
-      border-radius: 5px;
+      border-radius: 10px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      padding: 20px;
-      max-width: 600px;
+      padding: 40px;
+      max-width: 700px;
       margin: 0 auto;
-    }
-
-    .profile-card h1 {
-      color: #333;
+      color: #fff;
       text-align: center;
+    }
+  
+    .profile-card h1 {
+      font-size: 36px;
       margin-bottom: 20px;
     }
-
-    .profile-card h2 {
-      color: #666;
-      font-size: 24px;
+  
+    .profile-card p {
+      font-size: 18px;
       margin-bottom: 10px;
     }
-
-    .profile-card p {
-      color: #888;
-      margin-bottom: 5px;
+  
+    .profile-card .search-profile,
+    .profile-card .search-profile-btn {
+      padding: 10px;
+      margin-top: 20px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+  
+    .profile-card .search-profile {
+      width: 60%;
+    }
+  
+    .profile-card .search-profile-btn {
+      width: 150px;
+      background-color: #0069d9;
+      color: #fff;
+      cursor: pointer;
+    }
+  
+    /* Media query for responsiveness */
+    @media (max-width: 768px) {
+      .profile-card .search-profile,
+      .profile-card .search-profile-btn {
+        width: 100%;
+      }
     }
   </style>
+  
       
 
     

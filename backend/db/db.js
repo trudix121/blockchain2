@@ -1,4 +1,5 @@
 const { MongoClient, ServerApiVersion } = require("mongodb");
+const mongoose = require('mongoose')
 const uri = 'mongodb+srv://blockchain:pylex@main.9fbvhcv.mongodb.net/?retryWrites=true&w=majority';
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
@@ -8,6 +9,12 @@ const client = new MongoClient(uri, {
     deprecationErrors: true,
   },
 });
+mongoose.set("strictQuery", false);
+mongos_connect().catch((err) => console.log(err));
+async function mongos_connect() {
+  await mongoose.connect('mongodb+srv://blockchain:pylex@main.9fbvhcv.mongodb.net/blockchain?retryWrites=true&w=majority');
+  await console.log('Mongoose Connected!')
+}
 
 async function connect() {
   try {

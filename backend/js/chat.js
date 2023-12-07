@@ -35,4 +35,8 @@ router.get('/register',(req,res)=>{
 router.post('/register', (req,res)=>{
     console.log(req.body)
 })
+router.get('/admins', (req,res)=>{
+    res.render('../../frontend/chats/adminchat.ejs')
+})
+
 module.exports = router

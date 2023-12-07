@@ -289,28 +289,41 @@ router.get("/profile", async (req, res) => {
     username: original_username,
   });
 
+  // Check if result.ethm is defined before parsing;
+
+
   res.render("your-profile", {
     username_profile: result.username,
     ethm_profile: result.ethm,
     email_profile: result.email,
     money_profile: result.money,
+    user_level: result.level,
     username: original_username,
+    xp: result.xp,
   });
+  console.log(result.level)
 });
 
 router.post("/search-profile", async (req, res) => {
   const searched_username = req.body.searched_username;
+
   const { original_username } = req.query;
+  const data = await db.find_one('blockchain', 'accounts', {username:original_username})
   const result = await db
     .find_one("blockchain", "accounts", { username: searched_username })
     .then(async (result) => {
       if (result) {
+        // Check if result.ethm is defined before parsing
+        const ethmProfile = result.ethm !== undefined ? parseInt(result.ethm) : 0;
+
         res.render("your-profile", {
           username_profile: result.username,
-          ethm_profile: result.ethm,
+          ethm_profile: ethmProfile,
           email_profile: result.email,
           money_profile: result.money,
+          user_level: result.level,
           username: original_username,
+          xp: data.xp
         });
       } else {
         res.render("your-profile", {
@@ -323,6 +336,7 @@ router.post("/search-profile", async (req, res) => {
       }
     });
 });
+
 router.get("/link", async (req, res) => {
   const username1 = req.query.username;
   const username = db.find_one("blockchain", "accounts", {
@@ -353,5 +367,42 @@ router.post("/get_code", async (req, res) => {
           res.send(`You already have a code generated code: ${code.discord_code} `)
   }
 });
+
+router.post('/levelup', async (req, res) => {
+  const username = req.query.original_username;
+
+  try {
+    const data = await db.find_one('blockchain', 'accounts', { username: username });
+    
+    if (!data) {
+      return res.status(404).send('User not found');
+    }
+
+    const xp = data.xp;
+    const currentLevel = data.level || 0; // Set a default value if level is undefined
+    const ethmPerLevelUp = 10;
+
+    if (xp >= 100) {
+      const ethmReward = ethmPerLevelUp * (currentLevel + 1);
+
+      await db.update('blockchain', 'accounts', { username: username }, {
+        $inc: {
+          xp: -100,
+          level: 1,
+          ethm: ethmReward
+        }
+      });
+
+      res.send(`Success! You leveled up to level ${currentLevel + 1}. You received ${ethmReward} ethm.`);
+    } else {
+      res.send('You don\'t have enough xp points');
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+
 
 module.exports = router;

@@ -3,6 +3,7 @@ const app = express();
 const http = require("http").Server(app);
 const { Server } = require('socket.io');
 const db = require('../db/db.js');
+const bcrypt = require('bcrypt')
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -14,6 +15,7 @@ const io = new Server(http, {
     credentials: true
   }
 });
+
 
 io.on("connection", async (socket) => {
   console.log("Un utilizator s-a conectat");
@@ -48,6 +50,24 @@ io.on("connection", async (socket) => {
     console.log("Un utilizator s-a deconectat");
   });
 });
+
+/*const admin = io.of('/admins')
+
+admin.on('connection',async (socket)=>{
+  socket.on("chat message", async (msg) => {
+    console.log("Mesaj primit:", msg);
+
+   /* try {
+      await db.insert('blockchain', 'chatDB', { msg: `${msg.usrs} : ${msg.msg}`});
+    } catch (error) {
+      console.error('Error inserting message into the database:', error);
+    }*/
+
+    // Broadcast the message to all connected clients
+  /*  io.emit("chat message", msg);
+  });
+
+})*/
 
 const PORT = 2000;
 
