@@ -10,13 +10,13 @@ router.use(body.json());
 router.use(body.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 app.set("views", [
-  '../../frontend/admin',
-'  ../../frontend/blockchain',
-'  ../../frontend/index',
-'  ../../frontend/quests',
-'  ../../frontend/curency',
-'  ../../frontend/games',
-"../../frontend/chat"
+  "../../frontend/admin",
+  "  ../../frontend/blockchain",
+  "  ../../frontend/index",
+  "  ../../frontend/quests",
+  "  ../../frontend/curency",
+  "  ../../frontend/games",
+  "../../frontend/chat",
 ]);
 
 app.use(router);
@@ -50,49 +50,50 @@ router.post("/ng/add", async (req, res) => {
   const { ethm } = req.body;
   const { username } = req.query;
 
-  if (ethm == 10 || ethm == 2 || ethm == 5) {
-    const s = await db.update(
-      "blockchain",
-      "accounts",
-      { username: username },
-      { $inc: { ethm: parseInt(ethm), xp:10 } }
-    );
-    await db.insert("blockchain", "games_logs", {
-      username: username,
-      content: `He Won ${ethm} from random guess at ${fns.format(
-        new Date(),
-        "yyyy-MM-dd'T'HH:mm:ss.SSS"
-      )}  `,
-    });
+  const result = await db.find("blockchain", "accounts", {
+    username: username,
+  });
 
-    res.json("Success Added");
+  if (result.length > 0) {
+    const user = result[0]; // Access the first element of the array
+
+    if (user.battlepass == 1) {
+      const s = await db.update(
+        'blockchain',
+        'accounts',
+        { username: username },
+        {
+          $inc: {
+            ethm: parseInt(ethm),
+            xp: 10,
+            ng_played: 1
+          }
+        }
+      );
+      res.json("Success Added");
+    } else {
+      const s = await db.update(
+        "blockchain",
+        "accounts",
+        { username: username },
+        { $inc: { ethm: parseInt(ethm), xp: 10 } }
+      );
+      await db.insert("blockchain", "games_logs", {
+        username: username,
+        content: `He Won ${ethm} from random guess at ${fns.format(
+          new Date(),
+          "yyyy-MM-dd'T'HH:mm:ss.SSS"
+        )}  `,
+      });
+
+      res.json("Success Added");
+    }
   } else {
-    res.send("FRAUD FRAUD REPORTING");
-    await db.update(
-      "blockchain",
-      "accounts",
-      { username: username },
-      { $set: { ban: true } }
-    );
-    await db.update(
-      "blockchain",
-      "accounts",
-      { username: username },
-      { $set: { ban_reason: "fraud_games" } }
-    );
-    await db.update(
-      "blockchain",
-      "accounts",
-      { username: username },
-      { $set: { ethm: 0 } }
-    );
-    await db.insert("blockchain", "fraud_warning", {
-      username: username,
-      type_of_fraud: "editing js from browser",
-      sanction: "BAN",
-    });
+    res.send("User not found");
+    // Handle the case when no user is found with the specified username
   }
 });
+
 
 router.get("/ng.js", (req, res) => {
   res.sendFile(
@@ -131,10 +132,10 @@ router.post("/bk/remove", async (req, res) => {
 });
 
 router.post("/bk/add", async (req, res) => {
-  const moneyad= req.body.moneyad;
+  const moneyad = req.body.moneyad;
   const money = parseInt(moneyad);
   const username = req.body.username;
-  
+
   await db.insert("blockchain", "blackjack_logs", {
     username: username,
     content: `give ${money} from blackjack `,
@@ -147,11 +148,10 @@ router.post("/bk/add", async (req, res) => {
     {
       $inc: {
         money: parseInt(money),
-        xp: 20
+        xp: 20,
       },
     }
   );
 });
-
 
 module.exports = router;

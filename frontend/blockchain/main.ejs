@@ -1,143 +1,241 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-</head>
-<body class="bg-dark"> 
-  <nav class="navbar navbar-expand-lg bg-light ">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="">Blockchain</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active " aria-current="page" href="/blockchain?username=<%=username%>">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/blockchain/transfer?username=<%=username%>">Transfer</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="/blockchain/badges?username=<%=username%>">Your Badges</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="/blockchain/profile?username=<%=username%>">Your Profile</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="/games?username=<%=username%>">Games</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="http://localhost:3000/curency?username=<%=username%>">Curency</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="/blockchain/link?username=<%=username%>">Link Discord Account!</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Crypto 
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="">Ethm: <%=ethm%></a></li>
-              <li><a class="dropdown-item" href="">Report Bug (COMING SOON)</a></li>
-              <li><a class="dropdown-item" href="/blockchain/shop?username=<%=username%>">Shop</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="/blockchain/earn_ethm?username=<%=username%>">Earn Ethm</a></li>
-            </ul>
-          </li>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body class="bg-dark">
+    <nav class="navbar navbar-expand-lg bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="">Blockchain</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a
+                class="nav-link active"
+                aria-current="page"
+                href="/blockchain?username=<%=username%>"
+                >Home</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                href="/blockchain/transfer?username=<%=username%>"
+                >Transfer</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                aria-current="page"
+                href="/blockchain/badges?username=<%=username%>"
+                >Your Badges</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                aria-current="page"
+                href="/blockchain/profile?username=<%=username%>"
+                >Your Profile</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                aria-current="page"
+                href="/games?username=<%=username%>"
+                >Games</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                aria-current="page"
+                href="http://localhost:3000/curency?username=<%=username%>"
+                >Curency</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                aria-current="page"
+                href="/blockchain/link?username=<%=username%>"
+                >Link Discord Account!</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                aria-current="page"
+                href="/blockchain/daily_reward?username=<%=username%>"
+                >Daily Reward</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                aria-current="page"
+                href="http://localhost:3000/blockchain/battlepass?username=<%=username%>"
+                >Battlepass</a
+              >
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href=""
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Crypto
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="">Ethm: <%=ethm%></a></li>
+                <li>
+                  <a class="dropdown-item" href="">Report Bug (COMING SOON)</a>
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="/blockchain/shop?username=<%=username%>"
+                    >Shop</a
+                  >
+                </li>
+                <li><hr class="dropdown-divider" /></li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="/blockchain/earn_ethm?username=<%=username%>"
+                    >Earn Ethm</a
+                  >
+                </li>
+                
+                
+              </ul>
+            </li>
+          </ul>
+ <!--      <ul class="nav justify-content-end">
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href=""
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Crypto
+              </a>
+              <ul class="dropdown-menu">
+              </ul>
+            </li-->   
+        </div>
+      </div>
+    </nav>
 
+    <!--<p class="text-center text-success">Center aligned text on all viewport sizes.</p> -->
 
-        </ul>
+    <style>
+      .card {
+        width: 400px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        background-color: #ffffff;
+        float: none; /* Elimină proprietatea float */
+        margin-left: auto; /* Aliniază cardul la centru pe orizontală */
+        margin-right: auto; /* Aliniază cardul la centru pe orizontală */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        margin-top: 100px; /* Opțional - Adaugă o margine superioară pentru a poziționa cardul în mijlocul vertical al paginii */
+      }
+
+      .card-image {
+        flex-shrink: 0;
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-right: 20px;
+      }
+
+      .card-content {
+        flex-grow: 1;
+        text-align: center;
+      }
+
+      .card h2 {
+        font-size: 22px;
+        margin-top: 0;
+        margin-bottom: 10px;
+        color: black !important;
+      }
+
+      .card h3 {
+        font-size: 18px;
+        margin-top: 0;
+        margin-bottom: 5px;
+        color: black !important;
+      }
+
+      .card p {
+        margin-bottom: 10px;
+        font-size: 16px;
+      }
+
+      .card .btn {
+        display: inline-block;
+        background-color: #007bff;
+        color: #fff;
+        padding: 8px 12px;
+        border-radius: 3px;
+        text-decoration: none;
+      }
+
+      .profile-text {
+        text-align: center;
+      }
+
+      .card .btn:hover {
+        background-color: #0056b3;
+      }
+    </style>
+    <div class="card">
+      <div class="card-content">
+        <h1 class="profile-text"><%=username%> Card</h1>
+        <h2>Card Number: 4041 1245 5671 xxxx</h2>
+        <h3>Name: <%= username %></h3>
+        <h3>CVV: <%= cvv %></h3>
+        <p>Balance: <%=money%>$</p>
+        <p>Ethm: <%=ethm%></p>
       </div>
     </div>
-  </nav>
-
-      <!--<p class="text-center text-success">Center aligned text on all viewport sizes.</p> -->
-
- <style>
-
-.card {
-    width: 400px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    padding: 20px;
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    background-color: #ffffff;
-    float: none; /* Elimină proprietatea float */
-    margin-left: auto; /* Aliniază cardul la centru pe orizontală */
-    margin-right: auto; /* Aliniază cardul la centru pe orizontală */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-top: 100px; /* Opțional - Adaugă o margine superioară pentru a poziționa cardul în mijlocul vertical al paginii */
-  }
-
-.card-image {
-  flex-shrink: 0;
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-right: 20px;
-}
-
-.card-content {
-  flex-grow: 1;
-  text-align: center;
-}
-
-.card h2 {
-  font-size: 22px;
-  margin-top: 0;
-  margin-bottom: 10px;
-  color: black !important;
-}
-
-.card h3 {
-  font-size: 18px;
-  margin-top: 0;
-  margin-bottom: 5px;
-  color: black !important;
-}
-
-.card p {
-  margin-bottom: 10px;
-  font-size: 16px;
-}
-
-.card .btn {
-  display: inline-block;
-  background-color: #007bff;
-  color: #fff;
-  padding: 8px 12px;
-  border-radius: 3px;
-  text-decoration: none;
-}
-
-.profile-text{
-  text-align: center;
-}
-
-.card .btn:hover {
-  background-color: #0056b3;
-}
- </style>
-<div class="card">
-  <div class="card-content">
-    <h1 class="profile-text"><%=username%> Card</h1>
-    <h2>Card Number: 4041 1245 5671 xxxx</h2>
-    <h3>Name: <%= username %></h3>
-    <h3>CVV: <%= cvv %></h3>
-    <p>Balance: <%=money%>$</p>
-    <p>Ethm: <%=ethm%></p>
-  </div>
-</div>
-
-
-</body>
+  </body>
 </html>

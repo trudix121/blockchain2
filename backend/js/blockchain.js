@@ -10,7 +10,8 @@ const currentDate = new Date();
 const formattedDate = format(currentDate, "dd-MM-yyyy HH:mm:ss");
 
 
-const cors = require('cors')
+const cors = require('cors');
+const { userInfo } = require("os");
 const corsOptions = {
   origin: "*",
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
@@ -175,12 +176,15 @@ router.get("/shop/buy", async (req, res) => {
     (pro_badge = 100),
     (beginner_badge = 25),
     (semi_beginner = 50),
+    (battlepass = 1000)
+    
   ];
 
   try {
     const result = await db.find_one("blockchain", "accounts", {
       username: username,
     });
+    console.log(result)
     if (item === "pro_badge") {
       if (result.ethm < prices[0]) {
         res.send(`You Dont have ${prices[0]} ethm to buy Badge!`);
@@ -246,6 +250,39 @@ router.get("/shop/buy", async (req, res) => {
             { username: username },
             { $set: { beginner_badge: 1 } }
           );
+          res.send("Succes");
+        }
+      }
+    }
+    if (item === "battlepass") {
+      if (result.ethm < prices[3]) {
+        res.send(`You Dont have ${prices[3]} ethm to buy Badge!`);
+      } else {
+        if (result.battlepass === 1 || result.battlepass===2) {
+          res.send("You Already have battlepass!");
+        } else {
+          db.update('blockchain', 'accounts', {username:username}, {
+            '$inc':{
+
+              ethm: -parseInt(prices[3])
+            },
+            '$set':{
+              'battlepass': 1,
+              'ng_played':0,
+              'ethm_sell':0,
+              'ethm_buyed':0,
+            }
+          })
+          db.insert('battle_pass', 'december', {
+            username:username,
+            mission_1: 0,
+            mission_2: 0,
+            mission_3: 0,
+            mission_4: 0,
+            mission_5: 0,
+            finished:0
+
+          })
           res.send("Succes");
         }
       }
@@ -338,6 +375,14 @@ router.post("/search-profile", async (req, res) => {
 });
 
 router.get("/link", async (req, res) => {
+  const referrer = req.headers.referer || "";
+  const redirectUrl = "http://localhost:3000/";
+
+  // Verifică dacă Gigel a fost redirecționat de pe localhost:3000/
+  if (!referrer.startsWith(redirectUrl)) {
+    return res.status(403).send("Accesul refuzat!");
+  }
+
   const username1 = req.query.username;
   const username = db.find_one("blockchain", "accounts", {
     username: username1,
@@ -347,6 +392,7 @@ router.get("/link", async (req, res) => {
 });
 
 router.post("/get_code", async (req, res) => {
+
   const username = req.query.username;
   const data  = await db.find_one('blockchain', 'accounts', {username:username})
   function generate_code() {
@@ -358,6 +404,7 @@ router.post("/get_code", async (req, res) => {
 
           await db.update('blockchain', 'accounts', {username:username}, {$set:{
       discord_code:generate_code()
+      
     }})
       const credits = await db.find_one('blockchain', 'accounts', {username:username})
       res.send(`Succes Your Discord Link Code is ${credits.discord_code} For username Trudix`)
@@ -403,6 +450,151 @@ router.post('/levelup', async (req, res) => {
   }
 });
 
+router.post('/missions_verify',async (req,res)=>{
+  const referrer = req.headers.referer || "";
+  const redirectUrl = "http://localhost:3000/";
+
+  // Verifică dacă Gigel a fost redirecționat de pe localhost:3000/
+  if (!referrer.startsWith(redirectUrl)) {
+    return res.status(403).send("Accesul refuzat!");
+  }
+
+const data = await db.find_one('blockchain', 'accounts', {username:req.query.username})
+const bp = await db.find_one('battle_pass', 'december', {username:req.query.username})
+
+
+let mission_1;
+let mission_2;
+let mission_3;
+let mission_4;
+let mission_5;
+let final;
+console.log(data.ethm_buyed)
+console.log(data.ethm_sell)
+
+if(data.ethm_buyed >= 50){
+  if(bp.mission_1 == 1){
+
+  }
+  else{
+    db.update('battle_pass', 'december', {username:req.query.username}, {
+      '$set':{mission_1: 1}
+    })
+    db.update('blockchain', 'accounts', {username:req.query.username}, {
+      '$inc': {ethm:80}
+    })
+    mission_1 = 'completed'
+    console.log('debug')
+  }
+
+
+
+}
+if(data.ethm_sell >= 100){
+
+  if(bp.mission_2 == 1){
+  }
+  else{
+    db.update('battle_pass', 'december', {username:req.query.username}, {
+      '$set':{mission_2: 1}
+    })
+    db.update('blockchain', 'accounts', {username:req.query.username}, {
+      '$inc': {ethm:120}
+    })
+    mission_2 = 'completed'
+    console.log('debug1')
+
+  }
+
+
+
+}
+if(data.ng_played >= 5){
+  if(bp.mission_3!= 1){
+    db.update('battle_pass', 'december', {username:req.query.username}, {
+      '$set':{mission_3: 1}
+    })
+    db.update('blockchain', 'accounts', {username:req.query.username}, {
+      '$inc': {ethm:200}
+    })
+    mission_3 = 'completed'
+  }
+
+
+
+}
+
+if(data.ng_played >= 10){
+  if(bp.mission_4!= 1){
+    db.update('battle_pass', 'december', {username:req.query.username}, {
+      '$set':{mission_4: 1}
+    })
+    db.update('blockchain', 'accounts', {username:req.query.username}, {
+      '$inc': {ethm:500}
+    })
+    mission_4 = 'completed'
+  }
+
+
+
+}
+if(data.discord_connected === 1){
+  if(bp.mission_5!= 1){
+    db.update('battle_pass', 'december', {username:req.query.username}, {
+      '$set':{mission_5: 1}
+    })
+    db.update('blockchain', 'accounts', {username:req.query.username}, {
+      '$inc': {ethm:100}
+    })
+    mission_5 = 'completed'
+  }
+
+
+
+}
+
+if (bp.mission_1 == 1 & bp.mission_2 == 1 & bp.mission_3 == 1 & bp.mission_4 == 1 & bp.mission_5 == 1) {
+  db.update('battle_pass', 'december', { username: req.query.username }, {
+    '$set': { finished: 1 }
+  })
+  db.update('blockchain', 'accounts', { username: req.query.username }, {
+    '$inc': { ethm: 900 },
+    '$set': { battlepass: 2 }
+  })
+  res.send('Congrats! You complete battlepass , you receive in total 1900 ethm')
+} else {
+  res.send('Verified , refresh battlepass page to see result of missions!')
+}
+
+})
+
+router.get('/daily_reward', async (req, res) => {
+  const userId = req.query.username;
+  const datefns = require('date-fns');
+  const now = new Date();
+
+  const datas = await db.find_one('blockchain', 'dailyRewards', { username: userId }).then(async (data) => {
+    if (data == null) {
+      // User hasn't claimed the reward yet today
+      await db.update('blockchain', 'accounts', { username: userId }, { $inc: { ethm: 10 } });
+      await db.insert('blockchain', 'dailyRewards', {
+        username: userId,
+        day: now,
+      });
+      res.send('Daily Reward collected!');
+    } else {
+      // User has claimed the reward today
+      if (datefns.isSameDay(data.day, now)) {
+        res.send('Daily Reward Already Claimed for today!');
+      } else {
+        // User hasn't claimed the reward yet today
+        await db.update('blockchain', 'accounts', { username: userId }, { $inc: { ethm: 10 } });
+        await db.update('blockchain', 'dailyRewards', { username: userId }, { $set: { day: now } });
+        res.send('Daily Reward collected!');
+      }
+    }
+  });
+});
 
 
 module.exports = router;

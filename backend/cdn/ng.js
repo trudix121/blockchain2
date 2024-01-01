@@ -1,236 +1,154 @@
-function _0x2de1() {
-  const _0x1ac5f7 = [
-    "addEventListener",
-    "click",
-    "h1_guess",
-    "You\x20Win!\x20Play\x20Again",
-    "btn_start",
-    "7393113nfQWFR",
-    "7660696crbbqH",
-    "getElementById",
-    "Number:\x20",
-    "3284600vXohrg",
-    "number",
-    "random",
-    "8WGmmtj",
-    "play_no",
-    "style",
-    "application/json",
-    "getElementsByClassName",
-    "innerHTML",
-    "display",
-    "grid",
-    "none",
-    "6682518FJARfP",
-    "hint",
-    "Your\x20number\x20is\x20high",
-    "then",
-    "error",
-    "You\x20lose",
-    "floor",
-    "48953quwXUl",
-    "2HqysVN",
-    "9620100dlGdvt",
-    "level",
-    "block",
-    "easy",
-    "medium",
-    "json",
-    "value",
-    "Your\x20number\x20is\x20lower",
-    "POST",
-    "hard",
-    "catch",
-    "guess_number",
-    "guess_btn",
-    "1861929XmMOjL",
-  ];
-  _0x2de1 = function () {
-    return _0x1ac5f7;
-  };
-  return _0x2de1();
-}
-const _0x1faeaa = _0x20ab;
-function _0x20ab(_0xf010f6, _0xacefe1) {
-  const _0x2de178 = _0x2de1();
-  return (
-    (_0x20ab = function (_0x20abed, _0x184f99) {
-      _0x20abed = _0x20abed - 0x1c7;
-      let _0x238e9e = _0x2de178[_0x20abed];
-      return _0x238e9e;
-    }),
-    _0x20ab(_0xf010f6, _0xacefe1)
-  );
-}
-(function (_0x4332bf, _0x2885cd) {
-  const _0x2f9b49 = _0x20ab,
-    _0x475d24 = _0x4332bf();
-  while (!![]) {
-    try {
-      const _0x229971 =
-        (parseInt(_0x2f9b49(0x1dd)) / 0x1) *
-          (parseInt(_0x2f9b49(0x1de)) / 0x2) +
-        (-parseInt(_0x2f9b49(0x1ec)) / 0x3) *
-          (-parseInt(_0x2f9b49(0x1cd)) / 0x4) +
-        -parseInt(_0x2f9b49(0x1ca)) / 0x5 +
-        parseInt(_0x2f9b49(0x1d6)) / 0x6 +
-        parseInt(_0x2f9b49(0x1f2)) / 0x7 +
-        -parseInt(_0x2f9b49(0x1c7)) / 0x8 +
-        -parseInt(_0x2f9b49(0x1df)) / 0x9;
-      if (_0x229971 === _0x2885cd) break;
-      else _0x475d24["push"](_0x475d24["shift"]());
-    } catch (_0x496da4) {
-      _0x475d24["push"](_0x475d24["shift"]());
+document.addEventListener("DOMContentLoaded", function() {
+  let level = document.getElementById("level");
+  const btn_start = document.getElementById("btn_start");
+  const guess = document.getElementById("guess_number");
+  const hint = document.getElementById("hint");
+  const numberDisplay = document.getElementById('number');
+  const h1_guess = document.getElementById('h1_guess');
+  const guess_btn = document.getElementById('guess_btn');
+  const play_again = document.getElementById('play_again');
+  const play_no = document.getElementById('play_no');
+  const play_yes = document.getElementById('play_yes');
+  const level2 = document.getElementsByClassName('level');
+  
+  const easy_info = ["3", "2", 0, 5];
+  const medium_info = ["5", "5", 0, 10];
+  const hard_info = ["10", "10", 0, 20];
+  let main = null;
+  
+  
+  function reset_game(level) {
+      // Implementați funcționalitatea de resetare a jocuui
+      numberDisplay.style.display = 'none';
+      change = level[0]
     }
-  }
-})(_0x2de1, 0xbda28),
-  document[_0x1faeaa(0x1ed)]("DOMContentLoaded", function () {
-    const _0xffd0e2 = _0x1faeaa;
-    let _0x55594d = document["getElementById"](_0xffd0e2(0x1e0));
-    const _0x3d9ec1 = document[_0xffd0e2(0x1c8)](_0xffd0e2(0x1f1)),
-      _0x37b900 = document[_0xffd0e2(0x1c8)](_0xffd0e2(0x1ea)),
-      _0x460c12 = document["getElementById"](_0xffd0e2(0x1d7)),
-      _0x5717fd = document[_0xffd0e2(0x1c8)](_0xffd0e2(0x1cb)),
-      _0x54ab68 = document[_0xffd0e2(0x1c8)](_0xffd0e2(0x1ef)),
-      _0x57656f = document[_0xffd0e2(0x1c8)](_0xffd0e2(0x1eb)),
-      _0x415f52 = document[_0xffd0e2(0x1c8)]("play_again"),
-      _0x112547 = document[_0xffd0e2(0x1c8)](_0xffd0e2(0x1ce)),
-      _0x1a902b = document[_0xffd0e2(0x1c8)]("play_yes"),
-      _0x14f91b = document[_0xffd0e2(0x1d1)](_0xffd0e2(0x1e0)),
-      _0x401796 = ["3", "2", 0x0, 0x5],
-      _0x584dfe = ["5", "5", 0x0, 0xa],
-      _0x294c5f = ["10", "10", 0x0, 0x14];
-    let _0x4e951f = null;
-    function _0x5bd192(_0x356631) {
-      const _0xca4ce8 = _0xffd0e2;
-      (_0x5717fd[_0xca4ce8(0x1cf)]["display"] = _0xca4ce8(0x1d5)),
-        (_0x203a1d = _0x356631[0x0]);
+
+  function play_again1(level) {
+      play_yes.addEventListener('click', () => {
+  numberDisplay.style.display = 'none'; // Afișează elementul numberDisplay
+  guess.style.display = 'none';
+  hint.style.display = 'none';
+        guess_btn.style.display = 'none';
+        h1_guess.style.display = 'none';
+        play_no.style.display = 'none';
+        play_yes.style.display = 'none';
+        play_again.style.display = 'none';
+    
+        level2[0].style.display = 'block';
+        btn_start.style.display = 'block';
+    
+        reset_game(level);
+        numberDisplay.style.display = 'block'; // Afiseaza elementul numberDisplay
+      });
+      play_no.addEventListener('click', () => {
+        guess.style.display = 'none';
+        hint.style.display = 'none';
+        numberDisplay.style.display = 'none';
+        guess_btn.style.display = 'none';
+        h1_guess.style.display = 'none';
+        play_no.style.display = 'none';
+        play_yes.style.display = 'none';
+        play_again.style.display = 'none';
+      });
     }
-    function _0x26af03(_0x20d20b) {
-      const _0x1fe0c3 = _0xffd0e2;
-      _0x1a902b["addEventListener"](_0x1fe0c3(0x1ee), () => {
-        const _0x4805a7 = _0x1fe0c3;
-        (_0x5717fd["style"][_0x4805a7(0x1d3)] = _0x4805a7(0x1d5)),
-          (_0x37b900[_0x4805a7(0x1cf)][_0x4805a7(0x1d3)] = _0x4805a7(0x1d5)),
-          (_0x460c12[_0x4805a7(0x1cf)]["display"] = _0x4805a7(0x1d5)),
-          (_0x57656f["style"][_0x4805a7(0x1d3)] = _0x4805a7(0x1d5)),
-          (_0x54ab68[_0x4805a7(0x1cf)][_0x4805a7(0x1d3)] = "none"),
-          (_0x112547[_0x4805a7(0x1cf)][_0x4805a7(0x1d3)] = _0x4805a7(0x1d5)),
-          (_0x1a902b["style"][_0x4805a7(0x1d3)] = "none"),
-          (_0x415f52["style"][_0x4805a7(0x1d3)] = _0x4805a7(0x1d5)),
-          (_0x14f91b[0x0][_0x4805a7(0x1cf)]["display"] = "block"),
-          (_0x3d9ec1[_0x4805a7(0x1cf)]["display"] = _0x4805a7(0x1e1)),
-          _0x5bd192(_0x20d20b),
-          (_0x5717fd[_0x4805a7(0x1cf)]["display"] = _0x4805a7(0x1e1));
-      }),
-        _0x112547["addEventListener"](_0x1fe0c3(0x1ee), () => {
-          const _0x185e1e = _0x1fe0c3;
-          (_0x37b900[_0x185e1e(0x1cf)]["display"] = _0x185e1e(0x1d5)),
-            (_0x460c12[_0x185e1e(0x1cf)][_0x185e1e(0x1d3)] = _0x185e1e(0x1d5)),
-            (_0x5717fd["style"][_0x185e1e(0x1d3)] = _0x185e1e(0x1d5)),
-            (_0x57656f[_0x185e1e(0x1cf)][_0x185e1e(0x1d3)] = _0x185e1e(0x1d5)),
-            (_0x54ab68["style"]["display"] = _0x185e1e(0x1d5)),
-            (_0x112547["style"]["display"] = _0x185e1e(0x1d5)),
-            (_0x1a902b[_0x185e1e(0x1cf)]["display"] = _0x185e1e(0x1d5)),
-            (_0x415f52[_0x185e1e(0x1cf)][_0x185e1e(0x1d3)] = _0x185e1e(0x1d5));
-        });
-    }
-    function _0x5675dc(_0x519c97) {
-      const _0x2048fc = _0xffd0e2,
-        _0x58a9ea = { ethm: _0x519c97[0x1] };
-      fetch("http://localhost:3000/games/ng/add?username=" + username, {
-        method: _0x2048fc(0x1e7),
-        headers: { "Content-Type": _0x2048fc(0x1d0) },
-        body: JSON["stringify"](_0x58a9ea),
+    
+    
+  
+  function add_ethm(level) {
+    const data = { ethm: level[1] };
+  
+    fetch(`http://localhost:3000/games/ng/add?username=${username}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+      .then(response => response.json())
+      .then(result => {
       })
-        [_0x2048fc(0x1d9)]((_0x2a4e8e) => _0x2a4e8e[_0x2048fc(0x1e4)]())
-        [_0x2048fc(0x1d9)]((_0x12226c) => {})
-        [_0x2048fc(0x1e9)]((_0x58d1bc) => {
-          const _0x3f1f6c = _0x2048fc;
-          console[_0x3f1f6c(0x1da)](_0x58d1bc);
-        });
-    }
-    let _0x203a1d;
-    function _0x3581fa(_0x3d7847) {
-      const _0x4a0800 = _0xffd0e2,
-        _0x38e3a3 = _0x6f4e4b(_0x3d7847[0x2], _0x3d7847[0x3]);
-      (chance = _0x3d7847[0x0]),
-        _0x57656f[_0x4a0800(0x1ed)](_0x4a0800(0x1ee), (_0x1f6adc) => {
-          const _0x10ab33 = _0x4a0800;
-          let _0x41ac46 = _0x37b900[_0x10ab33(0x1e5)];
-          (_0x460c12[_0x10ab33(0x1cf)][_0x10ab33(0x1d3)] = _0x10ab33(0x1d4)),
-            _0x41ac46 > _0x38e3a3
-              ? ((_0x460c12[_0x10ab33(0x1d2)] = _0x10ab33(0x1d8)),
-                (chance -= 0x1))
-              : ((_0x460c12[_0x10ab33(0x1d2)] = _0x10ab33(0x1e6)),
-                (chance -= 0x1)),
-            _0x41ac46 == _0x38e3a3 &&
-              ((_0x460c12[_0x10ab33(0x1d2)] = "You\x20won"),
-              setTimeout(() => {
-                const _0x357caa = _0x10ab33;
-                (_0x460c12[_0x357caa(0x1cf)][_0x357caa(0x1d3)] = "none"),
-                  (_0x415f52[_0x357caa(0x1cf)]["display"] = "block"),
-                  (_0x1a902b[_0x357caa(0x1cf)][_0x357caa(0x1d3)] =
-                    _0x357caa(0x1e1)),
-                  (_0x112547[_0x357caa(0x1cf)][_0x357caa(0x1d3)] =
-                    _0x357caa(0x1e1)),
-                  (_0x415f52[_0x357caa(0x1d2)] = _0x357caa(0x1f0)),
-                  (_0x57656f[_0x357caa(0x1cf)][_0x357caa(0x1d3)] = "none"),
-                  _0x26af03(_0x3d7847),
-                  _0x5675dc(_0x3d7847);
-              }, 0x3e8)),
-            chance == 0x0 &&
-              ((_0x460c12[_0x10ab33(0x1d2)] = _0x10ab33(0x1db)),
-              setTimeout(() => {
-                const _0x52d1ff = _0x10ab33;
-                (_0x460c12[_0x52d1ff(0x1cf)][_0x52d1ff(0x1d3)] =
-                  _0x52d1ff(0x1d5)),
-                  (_0x415f52[_0x52d1ff(0x1cf)][_0x52d1ff(0x1d3)] =
-                    _0x52d1ff(0x1e1)),
-                  (_0x1a902b["style"][_0x52d1ff(0x1d3)] = _0x52d1ff(0x1e1)),
-                  (_0x112547["style"][_0x52d1ff(0x1d3)] = _0x52d1ff(0x1e1));
-              }, 0x3e8),
-              (_0x57656f[_0x10ab33(0x1cf)][_0x10ab33(0x1d3)] =
-                _0x10ab33(0x1d5)),
-              _0x26af03(_0x3d7847));
-        });
-    }
-    function _0x6f4e4b(_0x539e16, _0x491c8d) {
-      const _0x17493c = _0xffd0e2;
-      return Math[_0x17493c(0x1dc)](
-        Math[_0x17493c(0x1cc)]() * (_0x491c8d - _0x539e16 + 0x1) + _0x539e16
-      );
-    }
-    _0x3d9ec1["addEventListener"](_0xffd0e2(0x1ee), (_0x566038) => {
-      const _0xc5d438 = _0xffd0e2;
-      _0x566038["preventDefault"](),
-        _0x55594d[_0xc5d438(0x1e5)] === _0xc5d438(0x1e2) &&
-          ((_0x5717fd["innerHTML"] =
-            _0xc5d438(0x1c9) + _0x401796[0x2] + ",\x20" + _0x401796[0x3]),
-          (_0x54ab68[_0xc5d438(0x1cf)][_0xc5d438(0x1d3)] = _0xc5d438(0x1d4)),
-          (_0x3d9ec1[_0xc5d438(0x1cf)][_0xc5d438(0x1d3)] = _0xc5d438(0x1d5)),
-          (_0x57656f[_0xc5d438(0x1cf)][_0xc5d438(0x1d3)] = _0xc5d438(0x1d4)),
-          (_0x37b900[_0xc5d438(0x1cf)]["display"] = _0xc5d438(0x1d4)),
-          (_0x55594d[_0xc5d438(0x1cf)]["display"] = _0xc5d438(0x1d5)),
-          (_0x4e951f = _0x401796)),
-        _0x55594d[_0xc5d438(0x1e5)] === _0xc5d438(0x1e3) &&
-          ((_0x54ab68[_0xc5d438(0x1cf)][_0xc5d438(0x1d3)] = _0xc5d438(0x1d4)),
-          (_0x3d9ec1[_0xc5d438(0x1cf)][_0xc5d438(0x1d3)] = _0xc5d438(0x1d5)),
-          (_0x57656f[_0xc5d438(0x1cf)][_0xc5d438(0x1d3)] = "grid"),
-          (_0x37b900[_0xc5d438(0x1cf)][_0xc5d438(0x1d3)] = _0xc5d438(0x1d4)),
-          (_0x55594d[_0xc5d438(0x1cf)]["display"] = "none"),
-          (_0x5717fd[_0xc5d438(0x1d2)] =
-            _0xc5d438(0x1c9) + _0x584dfe[0x2] + ",\x20" + _0x584dfe[0x3]),
-          (_0x4e951f = _0x584dfe)),
-        _0x55594d[_0xc5d438(0x1e5)] === _0xc5d438(0x1e8) &&
-          ((_0x54ab68[_0xc5d438(0x1cf)][_0xc5d438(0x1d3)] = "grid"),
-          (_0x5717fd[_0xc5d438(0x1d2)] =
-            "Number:\x20" + _0x294c5f[0x2] + ",\x20" + _0x294c5f[0x3]),
-          (_0x3d9ec1[_0xc5d438(0x1cf)][_0xc5d438(0x1d3)] = _0xc5d438(0x1d5)),
-          (_0x57656f[_0xc5d438(0x1cf)][_0xc5d438(0x1d3)] = _0xc5d438(0x1d4)),
-          (_0x37b900[_0xc5d438(0x1cf)]["display"] = _0xc5d438(0x1d4)),
-          (_0x55594d["style"][_0xc5d438(0x1d3)] = "none"),
-          (_0x4e951f = _0x294c5f)),
-        _0x3581fa(_0x4e951f);
+      .catch(error => {
+        console.error(error);
+      });
+  }
+  let change;
+  function game(level) {
+    const randomNumber = randomIntFromInterval(level[2], level[3]);
+    chance = level[0];
+    guess_btn.addEventListener('click', (event) => {
+      let number = guess.value;
+      hint.style.display = 'grid';
+      if (number > randomNumber) {
+        hint.innerHTML = 'Your number is high';
+        chance -= 1;
+      } else {
+        hint.innerHTML = 'Your number is lower';
+        chance -= 1;
+      }
+      if (number == randomNumber) {
+        hint.innerHTML = 'You won';
+        setTimeout(() => {
+          hint.style.display = 'none';
+          play_again.style.display = 'block';
+          play_yes.style.display = 'block';
+          play_no.style.display = 'block';
+          play_again.innerHTML = 'You Win! Play Again';
+          guess_btn.style.display = 'none';
+
+          play_again1(level);
+          add_ethm(level);
+        }, 1000);
+      }
+      if (chance == 0) {
+        hint.innerHTML = 'You lose';
+        setTimeout(() => {
+          hint.style.display = 'none';
+          play_again.style.display = 'block';
+          play_yes.style.display = 'block';
+          play_no.style.display = 'block';
+        }, 1000);
+  
+        guess_btn.style.display = 'none';
+  
+        play_again1(level);
+      }
     });
+  }
+  
+  function randomIntFromInterval(min, max) {
+    // min and max included
+    return Math.floor(Math.random() * (max - min + 1) + min);
+  }
+  
+  btn_start.addEventListener("click", (event) => {
+    event.preventDefault();
+    if (level.value === "easy") {
+      numberDisplay.innerHTML = `Number: ${easy_info[2]}, ${easy_info[3]}`;
+      h1_guess.style.display = 'grid';
+      btn_start.style.display = 'none';
+      guess_btn.style.display = 'grid';
+      guess.style.display = 'grid';
+      level.style.display = 'none';
+      main = easy_info;
+    }
+    if (level.value === "medium") {
+      h1_guess.style.display = 'grid';
+      btn_start.style.display = 'none';
+      guess_btn.style.display = 'grid';
+      guess.style.display = 'grid';
+      level.style.display = 'none';
+      numberDisplay.innerHTML = `Number: ${medium_info[2]}, ${medium_info[3]}`;
+      main = medium_info;
+    }
+    if (level.value === "hard") {
+      h1_guess.style.display = 'grid';
+      numberDisplay.innerHTML = `Number: ${hard_info[2]}, ${hard_info[3]}`;
+      btn_start.style.display = 'none';
+      guess_btn.style.display = 'grid';
+      guess.style.display = 'grid';
+      level.style.display = 'none';
+      main = hard_info;
+    }
+    game(main);
   });
+});

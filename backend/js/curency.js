@@ -25,11 +25,23 @@ app.use(router);
 function generateRandomNumber(maxValue) {
   return Math.floor(Math.random() * maxValue) + 1;
 }
+const fetchData = require('../utils/eth_price.js');
 
-let currency_price = 0; // Variabila globala pentru pretul valutei
+// Now you can call the fetchData function
 
+
+let currency_price ; // Variabila globala pentru pretul valutei
+
+async function get_price(){
+  const price = await fetchData()
+  currency_price = price
+}
+get_price()
+if(currency_price == undefined ){
+  currency_price = 10000
+}
+console.log(currency_price)
 // Generare pret initial
-currency_price = generateRandomNumber(1000);
 
 router.get('/', async (req, res) => {
   const username = req.query.username;
@@ -65,16 +77,31 @@ router.post('/buy', async (req, res) => {
   try {
     if (user) {
       if (user.money >= currency_price * ethm) {
+        if(user.battlepass=== 1){
         await db.update('blockchain', 'accounts', { username: username }, {
           $inc: {
             money: -currency_price * parseInt(ethm),
-            buy_limit: -parseInt(ethm),
+            ethm_buyed: parseInt(ethm),
             ethm: parseInt(ethm)
           }
         });
         currency_price += 10;
         const after_result = await db.find_one('blockchain', 'accounts', { username: username });
         res.send(`Success! You have ${after_result.money}$`);
+        }
+        else{
+          await db.update('blockchain', 'accounts', { username: username }, {
+            $inc: {
+              money: -currency_price * parseInt(ethm),
+              ethm: parseInt(ethm)
+            }
+          });
+          currency_price += 10;
+          const after_result = await db.find_one('blockchain', 'accounts', { username: username });
+          res.send(`Success! You have ${after_result.money}$`);
+
+        }
+
       } else {
         res.send(`You don't have enough money. You need ${ethm * currency_price} $`);
       }
@@ -105,14 +132,28 @@ router.post('/sell', async (req, res) => {
       if (result.ethm < ethm) {
         res.send('You don\'t have enough ethm');
       } else {
-        await db.update('blockchain', 'accounts', { username: username }, {
-          $inc: {
-            money: parseInt(price),
-            ethm: -parseInt(ethm)
-          }
-        });
-        currency_price -= 10;
-        res.send('Success');
+        if(result.battlepass === 1){
+          await db.update('blockchain', 'accounts', { username: username }, {
+            $inc: {
+              money: parseInt(price),
+              ethm: -parseInt(ethm),
+              ethm_sell: parseInt(ethm),
+            }
+          });
+          currency_price -= 10;
+          res.send('Success');
+        }
+        else{
+          await db.update('blockchain', 'accounts', { username: username }, {
+            $inc: {
+              money: parseInt(price),
+              ethm: -parseInt(ethm),
+            }
+          });
+          currency_price -= 10;
+          res.send('Success');
+        }
+
       }
     } else {
       res.send('Internal Server Error');

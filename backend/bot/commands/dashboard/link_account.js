@@ -32,7 +32,7 @@ module.exports = {
             "blockchain",
             "accounts",
             { username: username },
-            { $set: { discord_account: interaction.user.username } }
+            { $set: { discord_account: interaction.user.username, discord_connected:1 } }
           );
           interaction.reply("Linked Succesfull");
         } else {

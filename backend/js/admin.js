@@ -33,14 +33,14 @@ router.get('/panel', async (req, res)=>{
     if (!referrer.startsWith(redirectUrl)) {
       return res.status(403).send('Accesul refuzat!');
     }
-    res.render('admin_main')
+    res.render('C:/Users/Pungesti41/Desktop/blockchain_2-0-main/frontend/admin/admin_main.ejs')
 
 
     
 })
 
 router.get('/', (req, res)=>{
-    res.render('admin_login')
+    res.render('C:/Users/Pungesti41/Desktop/blockchain_2-0-main/frontend/admin/admin_login.ejs')
 })
 
 
@@ -86,10 +86,10 @@ router.get('/leaderboard', async (req, res) => {
     }
     try {
       const players = await db.find('blockchain', 'accounts', {}); // Modify the database and collection names accordingly
-      res.render('leaderboard', { players });
+      res.render('C:/Users/Pungesti41/Desktop/blockchain_2-0-main/frontend/admin/leaderboard.ejs', { players });
     } catch (error) {
       console.error('Failed to retrieve leaderboard data:', error);
-      res.render('leaderboard', { players: [] }); // Render the template with an empty array if an error occurs
+      res.render('C:/Users/Pungesti41/Desktop/blockchain_2-0-main/frontend/admin/leaderboard.ejs', { players: [] }); // Render the template with an empty array if an error occurs
     }
   });
   
